@@ -14,6 +14,10 @@ ifndef CM_VERSION
 		CM_VERSION = latest
 	endif
 endif
+
+# Possible values for DESKTOP: (nodesktop | ubuntu-desktop | lubuntu-desktop)
+DESKTOP ?= nodesktop
+
 BOX_VERSION ?= $(shell cat VERSION)
 ifeq ($(CM),nocm)
 	BOX_SUFFIX := -$(CM)-$(BOX_VERSION).box
@@ -46,6 +50,9 @@ ifdef SSH_USERNAME
 endif
 ifdef UPDATE
 	PACKER_VARS_LIST += 'update=$(UPDATE)'
+endif
+ifdef DESKTOP
+	PACKER_VARS_LIST += 'desktop=$(DESKTOP)'
 endif
 
 PACKER_VARS := $(addprefix -var , $(PACKER_VARS_LIST))
