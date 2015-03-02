@@ -15,6 +15,16 @@ ifndef CM_VERSION
 	endif
 endif
 
+ifdef DEBUG_SCRIPTS
+	ifeq ($(DEBUG_SCRIPTS),yes)
+		DEBUG_SCRIPTS_FLAGS ?= -x
+	endif
+endif
+DEBUG_SCRIPTS_FLAGS ?=
+
+PURGE_BUILD_ESSENTIAL ?=
+PURGE_X11 ?=
+
 # Possible values for DESKTOP: (nodesktop | ubuntu-desktop | lubuntu-desktop)
 DESKTOP ?= nodesktop
 
@@ -50,6 +60,15 @@ ifdef SSH_USERNAME
 endif
 ifdef UPDATE
 	PACKER_VARS_LIST += 'update=$(UPDATE)'
+endif
+ifdef DEBUG_SCRIPTS_FLAGS
+	PACKER_VARS_LIST += 'debug_scripts_flags=$(DEBUG_SCRIPTS_FLAGS)'
+endif
+ifdef PURGE_BUILD_ESSENTIAL
+	PACKER_VARS_LIST += 'purge_build_essential=$(PURGE_BUILD_ESSENTIAL)'
+endif
+ifdef PURGE_X11
+	PACKER_VARS_LIST += 'purge_x11=$(PURGE_X11)'
 endif
 ifdef DESKTOP
 	PACKER_VARS_LIST += 'desktop=$(DESKTOP)'
@@ -193,7 +212,7 @@ clean-builders:
 	@for builder in $(BUILDER_TYPES) ; do \
 		if test -d box/$$builder ; then \
 			echo Deleting box/$$builder/*.box ; \
-			find box/$$builder -maxdepth 1 -type f -name "*.box" ! -name .gitignore -exec rm '{}' \; ; \
+			find box/$$builder -maxdepth 1 -type f -name "*.box" ! -name .gitignore -exßec rm '{}' \; ; \
 		fi ; \
 	done
 
