@@ -26,7 +26,6 @@ elif [[ $DISTRIB_RELEASE == 14.04 ]]; then
     if [ "$DESKTOP" = "ubuntu-desktop" ]; then
         echo "==> Installing ubunutu-desktop"
         apt-get install -y ubuntu-desktop
-        apt-mark manual ubuntu-desktop
 #       apt-get install -y --no-install-recommends ubuntu-desktop
 #       apt-get install -y gnome-terminal
         INSTALLING=yes
@@ -35,7 +34,6 @@ elif [[ $DISTRIB_RELEASE == 14.04 ]]; then
     if [ "$DESKTOP" = "lubuntu-desktop" ]; then
 	echo "==> Installing lubuntu-desktop"
         apt-get install -y --no-install-recommends lubuntu-desktop
-        apt-mark manual lubuntu-desktop
         INSTALLING=yes
     fi
 

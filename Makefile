@@ -212,7 +212,7 @@ clean-builders:
 	@for builder in $(BUILDER_TYPES) ; do \
 		if test -d box/$$builder ; then \
 			echo Deleting box/$$builder/*.box ; \
-			find box/$$builder -maxdepth 1 -type f -name "*.box" ! -name .gitignore -exßec rm '{}' \; ; \
+			find box/$$builder -maxdepth 1 -type f -name "*.box" ! -name .gitignore -exec rm '{}' \; ; \
 		fi ; \
 	done
 

@@ -158,7 +158,7 @@
         "rsync_proxy={{user `rsync_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash {{user `debug_scripts_flags`}} '{{.Path}}'",
       "scripts": [
         "script/update.sh",
         "script/vagrant.sh",
@@ -172,9 +172,13 @@
     }
   ],
   "variables": {
+    "debug_scripts_flags": "",
+    "purge_build_essential": "yes",
+    "purge_x11": "yes",
     "cleanup_pause": "",
     "cm": "nocm",
     "cm_version": "",
+    "desktop": "nodesktop",
     "custom_script": ".",
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "headless": "",
