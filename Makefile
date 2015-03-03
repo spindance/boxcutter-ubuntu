@@ -5,6 +5,13 @@ endif
 
 PACKER ?= packer
 
+ifdef FORCE
+	ifeq($(FORCE),yes)
+		FORCE_FLAGS = -force
+	endif
+endif
+FORCE_FLAGS ?=
+
 # Possible values for CM: (nocm | chef | chefdk | salt | puppet)
 CM ?= nocm
 # Possible values for CM_VERSION: (latest | x.y.z | x.y)
@@ -174,17 +181,17 @@ $(foreach i,$(SHORTCUT_TARGETS),$(eval $(call SHORTCUT,$(i))))
 $(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER_CMD) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) $<
+	$(PACKER_CMD) build $(FORCE_FLAGS) -only=$(VMWARE_BUILDER) $(PACKER_VARS) $<
 
 $(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER_CMD) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) $<
+	$(PACKER_CMD) build $(FORCE_FLAGS) -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) $<
 
 $(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
-	$(PACKER_CMD) build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) $<
+	$(PACKER_CMD) build  $(FORCE_FLAGS) -only=$(PARALLELS_BUILDER) $(PACKER_VARS) $<
 
 list:
 	@echo "Prepend 'vmware/' to build only vmware target:"
