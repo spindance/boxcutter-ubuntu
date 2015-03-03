@@ -6,7 +6,7 @@ endif
 PACKER ?= packer
 
 ifdef FORCE
-    ifeq($(FORCE),yes)
+    ifeq ($(FORCE),yes)
         FORCE_FLAGS = -force
     endif
 endif
